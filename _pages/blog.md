@@ -5,4 +5,6 @@ permalink: /blog/
 author_profile: true
 ---
 
-Here you'll find some thoughts, projects, and notes on topics that interest me.
+{% for post in site.categories.blog %}
+  - 📅 **{{ post.date | date: "%B %d, %Y" }}** — [{{ post.title }}]({{ post.url }})
+{% endfor %}
