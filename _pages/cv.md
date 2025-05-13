@@ -7,9 +7,6 @@ redirect_from:
   - /resume
 ---
 
-<iframe src="/files/zhang_resume_2025.pdf" width="100%" height="800px" style="border:none;">
-    This browser does not support PDFs. Please download the PDF to view it: 
-    <a href="/files/zhang_resume_2025.pdf">Download CV</a>.
-</iframe>
+<embed src="/files/zhang_resume_2025.pdf" type="application/pdf" width="100%" height="1000px" style="border: none;" />
 
 _Last updated: May 2025_
