@@ -7,26 +7,9 @@ redirect_from:
   - /resume
 ---
 
-{% include base_path %}
+<iframe src="/files/zhang_resume_2025.pdf" width="100%" height="800px" style="border:none;">
+    This browser does not support PDFs. Please download the PDF to view it: 
+    <a href="/files/zhang_resume_2025.pdf">Download CV</a>.
+</iframe>
 
-Education
-======
-* B.S. in Electrical Engineering, Arizona State University, 2027 (expected)
-
-Work experience
-======
-* Summer 2022: Research Assistant
-  * University of Arizona
-  * Duties included: Editing Arduino Script, device assembly
-  * Supervisor: Shenfeng Qiu
-
-Skills
-======
-* Digital.jar
-  * GTKWave Simulation
-* Java
-* Python
-
-Service and leadership
-======
-* Media Director for Chinese American Student Association at ASU
+_Last updated: May 2025_
