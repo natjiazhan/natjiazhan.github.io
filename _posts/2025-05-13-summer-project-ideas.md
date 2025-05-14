@@ -4,7 +4,7 @@ title: "Summer Project Ideas"
 date: 2025-05-13
 author: Nathan Zhang
 categories: [blog]
-tags: [fpga, summer, ideas]
+tags: [fpga, ml, tdr, gaussian splitting, summer, ideas]
 ---
 
 ## 2025 Summer Project Ideas
