@@ -80,4 +80,4 @@ The past semester, I have been learning system verilog and applying it for use d
 
 ---
 
-Considering my interests as well as my closeness to Intel and TSMC fabs, I think the combination of The first and third project ideas would be best. It involves machine learning, architecture implementation on FPGA, and the semiconductor industry failure analysis tool, TDR. The completion of this project will expand my knowledge in all these fields which will make me more competitive for a wide range of internships int the future.
+Considering my interests and my geographical proximity to Intel and TSMC fabs, I think a combination of the first and third project ideas would be best. This project will involve machine learning, architecture implementation on FPGA, and the semiconductor industry failure analysis tool, TDR. The completion of it will expand my knowledge in all these fields which will make me more competitive for a wide range of internships in the future.
