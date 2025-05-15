@@ -1,14 +1,12 @@
 ---
 layout: single
-title: "Summer Project Ideas"
+title: "2025 Summer Project Ideas"
 date: 2025-05-13
 author: Nathan Zhang
 categories: [blog]
 tags: [fpga, ml, tdr, gaussian splitting, summer, ideas]
 ---
 
-## 2025 Summer Project Ideas
----
 The past semester, I have been learning system verilog and applying it for use during labs on FPGAs. I have learned to love this process, and I want to find more ways to apply and expand on these skills. In addition, I have found interest in semiconductor fabrication tools as well as machine learning. For these reasons, I want my summer project(s) centered around FPGA, ML, and the SC industry. Outlined below are three ideas I have been playing around with.
 
 ---
