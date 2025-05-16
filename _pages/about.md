@@ -8,4 +8,4 @@ redirect_from:
   - /about.html
 ---
 
--About Me-
+Welcome to my personal website! I am an Honors Electrical Engineering Student at Arizona State University. My interests lie in Digital Design, Computer Architecture, Semiconductors, and Machine Learning. 
