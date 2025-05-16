@@ -9,7 +9,6 @@ tags: [fpga, ml, tdr, gaussian splitting, summer, ideas]
 
 The past semester, I have been learning system verilog and applying it for use during labs on FPGAs. I have learned to love this process, and I want to find more ways to apply and expand on these skills. In addition, I have found interest in semiconductor fabrication tools as well as machine learning. For these reasons, I want my summer project(s) centered around FPGA, ML, and the SC industry. Outlined below are three ideas I have been playing around with.
 
----
 
 ### 1. Time Domain Reflectometry (TDR) Emulation on FPGA
 
@@ -27,7 +26,6 @@ The past semester, I have been learning system verilog and applying it for use d
 - **Output Interface**  
   Display waveform via VGA/HDMI monitor.
 
----
 
 ### 2. Point-Based Renderer / Gaussian Splatting Engine
 
@@ -45,7 +43,6 @@ The past semester, I have been learning system verilog and applying it for use d
 - **Display Output**  
   Outputs final image via VGA or HDMI.
 
----
 
 ### 3. ML-Accelerated Fault Detection in Hardware
 
@@ -76,6 +73,5 @@ The past semester, I have been learning system verilog and applying it for use d
   - Train model on synthetic data  
   - Export weights for use in FPGA inference
 
----
 
 Considering my interests and my geographical proximity to Intel and TSMC fabs, I think a combination of the first and third project ideas would be best. This project will involve machine learning, architecture implementation on FPGA, and the semiconductor industry failure analysis tool, TDR. The completion of it will expand my knowledge in all these fields which will make me more competitive for a wide range of internships in the future.
