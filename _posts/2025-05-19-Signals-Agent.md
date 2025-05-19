@@ -279,7 +279,31 @@ The terminal UI helps:
 
 That said, the architecture cleanly separates input/output from the core logic, so wrapping this in a GUI (or even a web interface) would be straightforward in the future which is something I definitely plan on doing. 
 
+## Next Steps
 
+While Signals Agent already performs multiscale acoustic analysis and intelligent reasoning over short clips, my vision goes further. There are two major directions I'm exploring: enabling ambient, real-time operation, and generalizing the agent to handle RF signals, not just sound.
 
+### Ambient Monitoring Mode
 
+Currently, the agent operates in a request-response model, users manually provide audio, and the agent runs analysis on demand. A powerful next step is to enable a background monitoring mode, where the agent continuously listens to the environment and autonomously decides when to trigger deeper analysis. I'm planning to implement a threshold-activated recording system, where the agent passively listens through a microphone or sensors and continuously computes FFTs in short rolling windows (e.g., 1-second slices). Then, when spectral energy exceeds a configurable threshold or shows a sudden shift in frequency, it records a longer segment for a full analysis. For example, if a normally quiet environment suddenly produces burst of noise, or if a tone appears and begins to drift upward in frequency, the agent would recognize this as meaningful and capture a relevant time slice for interpretation. This transforms the agent from a reactive tool into a proactive observer, something more akin to a “watchdog” that only speaks up when something interesting is happening.
+
+### Expanding Beyond Audio: RF Signal Awareness
+
+While our prototype is currently audio-focused, the architecture we've built, particularly the FFT engine, frequency binning strategy, and reasoning loop, translates cleanly to other signal domains, especially RF. RF signals, like acoustic ones, can be time-varying, noisy, and multicomponent. They require the same tools, FFT to analyze spectral content, time-frequency segmentation to capture dynamics, and contextual lookup to reason about unknown or unexpected signatures. By adapting the frontend to accept I/Q samples or raw RF captures from software-defined radios (SDRs), we could build a version of Signals Agent capable of detecting unauthorized transmissions in telecom networks, monitoring spectrum activity for electromagnetic interference, and identifying RF fingerprints of common devices in the environment. This opens the door to applications in communications monitoring, cybersecurity, defense, and wireless infrastructure diagnostics. The biggest lift will be handling different sample formats and extending the Perplexity tool’s prompting to cover RF domain knowledge—but the core reasoning framework is already in place.
+
+Ultimately, the goal is to build an agent that can live ambiently in physical or electronic environments, continuously observe, and help people interpret invisible processes. Whether it's a failing fan or a rogue RF emitter, I want the agent to listen, investigate, and explain.
+
+## Signal Agent's Real World Applications
+
+#### Predictive Maintenance in Factories
+
+Imagine you have a "lights-out" factory line producing semiconductor wafers. In such a complex and precise industry as semiconductor manufaturing, the conditions of tools are even more important. Each wafer can be worth thousands of dollars, and the factory you're running is so seamless, any delays or tool mishaps can set you back for weeks or even months. Machines and tools have a shelf-life, they wear down as you use them. These tools will often produce vibrations or shifts in frequency long before they break down. Signal Agent could potentially catch these, giving you a chance to order parts or new tools long in advance. If tuned enough, Signal Agent could even give e rough estimate of the time window in which the tool/machine breaks down. Our agent contributes the missing “why” layer: it doesn’t just raise an alarm; it explains that what the frequency anomaly could *mean*. 
+
+#### Smart Buildings & Environmental Monitoring
+
+Beyond rotating machinery, many building systems emit distinctive acoustic signatures that shift subtly over time. One particularly valuable application is in HVAC (heating, ventilation, and air conditioning) systems. As air filters become clogged or fans degrade, these systems begin to operate less efficiently, often producing higher-frequency whines, lower throughput hums, or increased harmonic distortion in their acoustic profiles. By continuously monitoring ambient sound through ceiling-mounted microphones or embedded audio sensors, a spectral agent like ours could detect these shifts early—long before occupants notice discomfort or maintenance crews are alerted. For instance, a clogged air filter might manifest as a gradual rise in high-frequency energy as the system strains to maintain airflow. By visualizing these patterns in a live dashboard, building operators can trigger targeted interventions (e.g., replacing filters or tuning blower speeds).
+
+### Defense & Radio Frequency (RF) Signal Intelligence
+
+Swap the microphone for a wideband RF front end and the same FFT-bin-explain loop can flag unauthorized transmitters, oscillator drift, or jamming attempts. This could be especially useful (and cool) since all of the remote-controlled devices like unmanned aerial vehicles (UAVs), ground vehicles like the MARCBOT, and even remote-controlled weapon systems all use RF. Because our agent queries the web, it can pull regulatory tables (e.g., FCC Part 15) and suggest compliance actions automatically. 
 
