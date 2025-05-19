@@ -201,7 +201,7 @@ While the intelligence of Signals Agent lives in its tools and reasoning loops, 
 
 ### The Audio Analysis Terminal
 
-![The Welcome Interface]('./images/agent_welcome_screen.png')
+![The Welcome Interface]('/images/agent_welcome_screen.png')
 
 The `app.py` module is the user-facing entry point to the agent. When you run it, you're greeted with an interactive terminal interface that guides you through every step—from selecting or recording audio to entering your analysis instructions. Here’s how the interaction works:
 
@@ -223,12 +223,14 @@ The `app.py` module is the user-facing entry point to the agent. When you run it
    You’re prompted to enter a natural-language task (e.g., "Analyze the humming sound and identify likely sources"). A default query is provided if you just hit Enter (it auto-fills).
 
 4. **Running the Agent:**
-   The app calls `run_agent()` asynchronously with your query and displays the agent’s thoughts, tool usage, and results in real time. This is helpful for seeing where the agent draws its    information, and it allows the user to see the spectrogram at each resolution the agent chooses to analyze at. 
+   The app calls `run_agent()` asynchronously with your query and displays the agent’s thoughts, tool usage, and results in real time. This is helpful for seeing where the agent draws its information, and it allows the user to see the spectrogram at each resolution the agent chooses to analyze at.
 
-5. **Loop or Exit:**
+6. **Loop or Exit:**
    Once the analysis is complete, it asks if you want to run another analysis or exit.
 
 ### Spectrogram Visualization in the Terminal
+
+![Agent Thoughts and Spectrogram]('/images/agent_spectrogram.png')
 
 Raw CSVs of frequency data aren’t easy to interpret on their own, especially in a terminal. That’s where `format.py` comes in. It converts the FFT tool’s CSV output into a colorized Rich Table, mimicking the look and feel of a spectrogram.
 
@@ -263,6 +265,8 @@ Raw CSVs of frequency data aren’t easy to interpret on their own, especially i
 This feature is especially helpful for understanding how energy varies over time. The colorization makes important patterns—like pulses, peaks, or drops—visually obvious, even without switching to an external plotting tool, kind of like a heat map. 
 
 ### Why a Terminal UI?
+
+![Agent Output]('/images/agent_output.png')
 
 Apart from the fact that we had limited time and wanted to focus on the subtsance of our project rather than a flashy shell, there were some technical reasons to keep it in the terminal. Not having a front-end reduces the total number of components involved in the process. This limits the number of connections where a fault or error could appear last minute. In a competition based event, this could be the difference between having something to present vs. not. 
 
