@@ -201,7 +201,7 @@ While the intelligence of Signals Agent lives in its tools and reasoning loops, 
 
 ### The Audio Analysis Terminal
 
-![The Welcome Interface]('/images/agent_welcome_screen.png')
+![The Welcome Interface](/images/agent_welcome_screen.png)
 
 The `app.py` module is the user-facing entry point to the agent. When you run it, you're greeted with an interactive terminal interface that guides you through every step—from selecting or recording audio to entering your analysis instructions. Here’s how the interaction works:
 
@@ -230,7 +230,7 @@ The `app.py` module is the user-facing entry point to the agent. When you run it
 
 ### Spectrogram Visualization in the Terminal
 
-![Agent Thoughts and Spectrogram]('/images/agent_spectrogram.png')
+![Agent Thoughts and Spectrogram](/images/agent_spectrogram.png)
 
 Raw CSVs of frequency data aren’t easy to interpret on their own, especially in a terminal. That’s where `format.py` comes in. It converts the FFT tool’s CSV output into a colorized Rich Table, mimicking the look and feel of a spectrogram.
 
@@ -266,7 +266,7 @@ This feature is especially helpful for understanding how energy varies over time
 
 ### Why a Terminal UI?
 
-![Agent Output]('/images/agent_output.png')
+![Agent Output](/images/agent_output.png)
 
 Apart from the fact that we had limited time and wanted to focus on the subtsance of our project rather than a flashy shell, there were some technical reasons to keep it in the terminal. Not having a front-end reduces the total number of components involved in the process. This limits the number of connections where a fault or error could appear last minute. In a competition based event, this could be the difference between having something to present vs. not. 
 
