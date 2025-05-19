@@ -33,7 +33,7 @@ By the end of the hackathon, the agent could detect and interpret dominant spect
 
 At the core of our signal analysis workflow is a flexible and adaptive approach to audio ingestion and segmentation. Before any meaningful interpretation can happen, the audio data must be properly captured, cleaned, and structured. This involves several key steps: loading the audio, converting formats, segmenting it across time and frequency, and allowing the agent to choose how to zoom in based on what it finds.
 
-#### Loading the Audio
+### Loading the Audio
 
 We support both pre-recorded audio (e.g., .mp3, .m4a) and live-recorded clips using a microphone. Regardless of the source, we standardize everything into WAV format and then convert it to a 1D NumPy array using `audio2numpy` and extract the sampling rate, which allows for easy manipulation in Python:
 
@@ -46,7 +46,7 @@ if signal.ndim == 2:
 
 This mono conversion is important because spectral analysis assumes a single channel unless otherwise specified, and collapsing stereo to mono ensures uniformity during analysis. 
 
-#### Spectral Segmentation: Time and Frequency Bins
+### Spectral Segmentation: Time and Frequency Bins
 
 After loading, the signal is segmented across both time and frequency domains using a sliding window approach. We define a number of `time_bins` to divide the clip into equal-length windows (e.g., 10 bins for a 20-second clip = 2 seconds per slice), and we define `freq_bins` to segment the frequency domain into ranges (e.g., 0–100 Hz, 100–200 Hz, ..., up to 2000 Hz).
 
@@ -234,7 +234,7 @@ The `app.py` module is the user-facing entry point to the agent. When you run it
 
 Raw CSVs of frequency data aren’t easy to interpret on their own, especially in a terminal. That’s where `format.py` comes in. It converts the FFT tool’s CSV output into a colorized Rich Table, mimicking the look and feel of a spectrogram.
 
-#### Key features of `format_fft_output_as_rich_table()`:
+Key features of `format_fft_output_as_rich_table()`:
 
 * **CSV Parsing:**
   Reads the `Time`, `Frequency Bin`, and energy values from the CSV string returned by the FFT tool.
@@ -295,11 +295,11 @@ Ultimately, the goal is to build an agent that can live ambiently in physical or
 
 ## Signal Agent's Real World Applications
 
-#### Predictive Maintenance in Factories
+### Predictive Maintenance in Factories
 
 Imagine you have a "lights-out" factory line producing semiconductor wafers. In such a complex and precise industry as semiconductor manufaturing, the conditions of tools are even more important. Each wafer can be worth thousands of dollars, and the factory you're running is so seamless, any delays or tool mishaps can set you back for weeks or even months. Machines and tools have a shelf-life, they wear down as you use them. These tools will often produce vibrations or shifts in frequency long before they break down. Signal Agent could potentially catch these, giving you a chance to order parts or new tools long in advance. If tuned enough, Signal Agent could even give e rough estimate of the time window in which the tool/machine breaks down. Our agent contributes the missing “why” layer: it doesn’t just raise an alarm; it explains that what the frequency anomaly could *mean*. 
 
-#### Smart Buildings & Environmental Monitoring
+### Smart Buildings & Environmental Monitoring
 
 Beyond rotating machinery, many building systems emit distinctive acoustic signatures that shift subtly over time. One particularly valuable application is in HVAC (heating, ventilation, and air conditioning) systems. As air filters become clogged or fans degrade, these systems begin to operate less efficiently, often producing higher-frequency whines, lower throughput hums, or increased harmonic distortion in their acoustic profiles. By continuously monitoring ambient sound through ceiling-mounted microphones or embedded audio sensors, a spectral agent like ours could detect these shifts early—long before occupants notice discomfort or maintenance crews are alerted. For instance, a clogged air filter might manifest as a gradual rise in high-frequency energy as the system strains to maintain airflow. By visualizing these patterns in a live dashboard, building operators can trigger targeted interventions (e.g., replacing filters or tuning blower speeds).
 
