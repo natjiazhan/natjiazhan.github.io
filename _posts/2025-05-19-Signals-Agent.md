@@ -201,7 +201,7 @@ While the intelligence of Signals Agent lives in its tools and reasoning loops, 
 
 ### The Audio Analysis Terminal
 
-
+![The Welcome Interface]('/images/agent_welcome_screen.png')
 
 The `app.py` module is the user-facing entry point to the agent. When you run it, you're greeted with an interactive terminal interface that guides you through every step—from selecting or recording audio to entering your analysis instructions. Here’s how the interaction works:
 
