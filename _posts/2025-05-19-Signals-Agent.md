@@ -215,9 +215,9 @@ The `app.py` module is the user-facing entry point to the agent. When you run it
    If you choose to use an existing file, it displays a numbered list of `.mp3` and `.m4a` files for selection.
    If you opt to record, it asks how long you'd like to record and streams microphone input to a WAV file.
 
-   ```python
-   selected_file = record_audio(duration=10)  # Records and saves as WAV
-   ```
+```python
+selected_file = record_audio(duration=10)  # Records and saves as WAV
+```
 
 3. **Analysis Instructions:**
    You’re prompted to enter a natural-language task (e.g., "Analyze the humming sound and identify likely sources"). A default query is provided if you just hit Enter (it auto-fills).
@@ -245,22 +245,22 @@ Key features of `format_fft_output_as_rich_table()`:
   * Blue = low energy
   * Yellow/Red = high energy
 
-  ```python
-  def _get_color_for_value(value, v_min, v_max):
-      normalized = (value - v_min) / (v_max - v_min)
-      r, g, b, _ = matplotlib.cm.jet(normalized)
-      return f"#{int(r*255):02x}{int(g*255):02x}{int(b*255):02x}"
-  ```
+```python
+def _get_color_for_value(value, v_min, v_max):
+  normalized = (value - v_min) / (v_max - v_min)
+  r, g, b, _ = matplotlib.cm.jet(normalized)
+  return f"#{int(r*255):02x}{int(g*255):02x}{int(b*255):02x}"
+```
 
 * **Rich Table Output:**
   Each time slice becomes a row. Each frequency bin becomes a column. The color-coding turns this into a kind of **ASCII spectrogram**, rendered right in your terminal window.
 
-  ```python
-  table.add_column("Time")
-  table.add_column("0–100Hz")
-  table.add_column("100–200Hz")
-  ...
-  ```
+```python
+table.add_column("Time")
+table.add_column("0–100Hz")
+table.add_column("100–200Hz")
+...
+```
 
 This feature is especially helpful for understanding how energy varies over time. The colorization makes important patterns—like pulses, peaks, or drops—visually obvious, even without switching to an external plotting tool, kind of like a heat map. 
 
