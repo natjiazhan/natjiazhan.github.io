@@ -40,9 +40,8 @@
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
 
-// Force override of small code block font
-article.page pre,
-article.page pre.highlight {
+div.highlighter-rouge pre.highlight,
+div.highlighter-rouge .highlight pre {
   font-size: 1rem !important;
   line-height: 1.6 !important;
   padding: 1em !important;
