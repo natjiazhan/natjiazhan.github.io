@@ -80,7 +80,15 @@ for i in range(len(frequency)):
         binned_power[indices[i]] += power[i]
 ```
 
-This generates a time-frequency matrix, where each row corresponds to a time slice, and each column corresponds to a frequency range. Each "square" of time and frequency contains a value that indicates the power density. This structured data is then either normalized (if freq_bins > 1) to show energy trends. Spectral binning is a powerful tool. Smaller bins allow the agent to see finer resolution, isolating short-duration spikes or tightly grouped frequencies. Larger bins help identify broader trends and energy distributions. Time bins help localize when something happens (e.g., a sudden burst of energy at 6.5 seconds). Frequency bins help identify what kind of signal it is (e.g., low-frequency mechanical hums vs high-frequency clicks). Adaptive binning allows the agent to first get a coarse overview and then drill into specific segments for further analysis. Rather than hardcoding ranges and bin sizes, we leave this decision to the agent. Based on what it observes in the broad scan, it can decide to zoom in:
+This generates a time-frequency matrix, where each row corresponds to a time slice, and each column corresponds to a frequency range. Each "square" of time and frequency contains a value that indicates the power density. This structured data is then either normalized (if freq_bins > 1) to show energy trends. Time bins help localize when something happens (e.g., a sudden burst of energy at 6.5 seconds). Frequency bins help identify what kind of signal it is (e.g., low-frequency mechanical hums vs high-frequency clicks). 
+
+<video controls width="100%">
+  <source src="/images/spectrogramvid.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+Spectral binning is a powerful tool. Smaller bins allow the agent to see finer resolution, isolating short-duration spikes or tightly grouped frequencies. Larger bins help identify broader trends and energy distributions. Adaptive binning allows the agent to first get a coarse overview and then drill into specific segments for further analysis. Rather than hardcoding ranges and bin sizes, we leave this decision to the agent. Based on what it observes in the broad scan, it can decide to zoom in:
 
 Example agent instruction:
 
