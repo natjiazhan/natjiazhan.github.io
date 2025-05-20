@@ -40,3 +40,12 @@
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
 
+// Fix small code block font
+pre,
+pre.highlight {
+  font-size: 1rem;        // Or 16px
+  line-height: 1.6;
+  padding: 1em;
+  border-radius: 6px;
+  background-color: #f8f8f8;  // Optional: a bit lighter background
+}
