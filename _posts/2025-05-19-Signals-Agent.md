@@ -13,19 +13,19 @@ During the Proving Ground: Agentic Startup RAG-a-Thon, I built a prototype “si
 
 Inputs:
 
-M4A/MP3 audio files (recorded live or pre-recorded)
+* M4A/MP3 audio files (recorded live or pre-recorded)
 
-Core Pipeline:
+* Core Pipeline:
 
-audio2numpy → FFT → time + frequency binning → ReAct Agent (LlamaIndex) + Perplexity API → natural-language report
+  * audio2numpy → FFT → time + frequency binning → ReAct Agent (LlamaIndex) + Perplexity API → natural-language report
 
-Outputs:
+* Outputs:
 
-CSV table of time-frequency energy
+  * CSV table of time-frequency energy
 
-Richly annotated spectrogram (in terminal, colorized)
+  * Richly annotated spectrogram (in terminal, colorized)
 
-Conversational summary with web-sourced context and citations
+  * Conversational summary with web-sourced context and citations
 
 By the end of the hackathon, the agent could detect and interpret dominant spectral peaks and trends, link them to plausible sources, and return results in under a minute — all running on local, commodity hardware.
 
