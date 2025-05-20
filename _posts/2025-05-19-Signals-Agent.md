@@ -7,6 +7,10 @@ categories: [blog]
 tags: [signal-processing, FFT, spectrogram, agents, LlamaIndex, OpenAI, Perplexity, numpy, Python]
 ---
 
+<p align="center">
+  <img src="/images/agentrunning.gif" alt="Spectrogram Visualization">
+</p>
+
 ## Project Summary
 
 During the Proving Ground: Agentic Startup RAG-a-Thon, I built a prototype “signals agent” capable of analyzing noisy audio clips by performing multiscale FFTs, conducting spectral analysis, querying a web search API, and returning an explanation of frequency-domain events. You can think of it as an automated lab partner that listens, investigates, and explains what it hears.
