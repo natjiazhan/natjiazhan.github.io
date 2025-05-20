@@ -82,6 +82,8 @@ for i in range(len(frequency)):
 
 This generates a time-frequency matrix, where each row corresponds to a time slice, and each column corresponds to a frequency range. Each "square" of time and frequency contains a value that indicates the power density. This structured data is then either normalized (if freq_bins > 1) to show energy trends. Time bins help localize when something happens (e.g., a sudden burst of energy at 6.5 seconds). Frequency bins help identify what kind of signal it is (e.g., low-frequency mechanical hums vs high-frequency clicks). 
 
+Here is a video illustrating how adjusting frequency and time bins affects the information extracted from the spectrogram (Code for visual was done in JavaScript and can be found in my Signals Agent repo):
+
 <video controls width="100%">
   <source src="/images/spectrogramvid.mp4" type="video/mp4">
   Your browser does not support the video tag.
