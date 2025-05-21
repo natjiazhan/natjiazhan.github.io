@@ -8,7 +8,7 @@ tags: [signal-processing, FFT, spectrogram, agents, LlamaIndex, OpenAI, Perplexi
 ---
 
 <p align="center">
-  <img src="/images/agentrunning.gif" alt="Spectrogram Visualization">
+  <img src="/images/agentrunning1.gif" alt="Spectrogram Visualization">
 </p>
 
 ## Project Summary
