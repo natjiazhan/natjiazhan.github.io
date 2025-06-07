@@ -47,6 +47,22 @@ I realized that the agent was heavily biased toward frequency-based pattern reco
 
 ## Attempt 1: Line of Reasoning
 
+Before anything else, I tried a simple solution: teach the agent how to think more deliberately. I added a section to the system prompt to encourage a clear sequence of steps, almost like a scientific method for audio analysis.
+
+The idea was to help the agent reason its way through the problem:
+
+- Start with a full-spectrum FFT to find dominant frequency ranges.
+
+- Narrow in on specific ranges or time intervals using follow-up FFTs.
+
+- Formulate a hypothesis (e.g. "this might be a motor or a river") based on spectral structure.
+
+- Use Perplexity to gather external clues about typical sources with similar frequency behavior.
+
+- Compare and weigh the evidence before drawing a conclusion.
+
+In practice, this sometimes worked. The agent would identify a 120 Hz hum, note its consistency, search for sources of narrowband low-frequency tones, and suggest it was either an HVAC system or an engine. But too often, the analysis would short-circuit. The agent would detect a peak, guess at the cause, and skip deeper steps altogether. Or it would offer two contradictory explanations, like "natural water flow" and "electrical transformer", without resolving which was more likely. This revealed a core limitation: even with a structured prompt, the agent still didn’t have enough input to reason well. It could identify peaks and echo back facts, but it lacked descriptors like noisiness, periodicity, or entropy, all of which are essential when frequency alone isn’t enough.
+
 ## Attempt 2: Adding More Tools
 
 To give the agent more context beyond just frequency content, I added six new tools to ```functions.py```. Each was chosen to extract a different acoustic property that could help the agent reason about the nature of a sound, especially in edge cases where FFT data alone was ambiguous.
@@ -76,6 +92,58 @@ This quantifies the complexity or self-similarity of a waveform. A signal with s
 Entropy estimates the unpredictability or randomness of the waveform's amplitude distribution. A high entropy signal is unpredictable and complex, while low entropy suggests repetitive or structured content. Together with flatness and fractal dimension, entropy gives a more complete picture of signal randomness. It also complements autocorrelation — both tools approach structure detection from different angles.
 
 There is some intentional overlap among these tools. For instance, both entropy and fractal dimension relate to signal complexity, while ZCR and spectral flatness speak to noisiness. But each approaches its measurement from a different mathematical lens, which means they occasionally surface contradictions that should help the agent reason through ambiguity. In theory, this meant the agent should be able to tell the difference between a gurgling stream and a humming motor — even if they both produce energy at 100 Hz. One is chaotic, noisy, and organic. The other is mechanical, stable, and tonal. But it didn't.
+
+## The Misclassification Problem Part 2
+
+To better understand where the agent’s reasoning fails, I ran it on a 20-second audio clip recorded at a forest creek. The true contents of the recording were simple: the gentle sound of water flowing over rocks and leaves rustling in the background. 
+
+Have a listen: [[[[[[ AAAAADDDD AUUUDDIOOOO HEREEE]]]]]]
+
+Insert Thought Here
+
+The agent began with a broad FFT covering 0–2000 Hz and found strong sustained energy in the lowest frequency band — especially below 133 Hz.
+
+Insert Output Here
+
+Next, it ran an autocorrelation analysis to check for periodicity. The results showed extremely high correlation at low lags, which the agent interpreted as tonal regularity.
+
+Insert Thought Here
+
+Insert Output Here
+
+Then it tried zero crossing rate to assess noisiness, which came out uniformly low — again consistent with a smooth waveform.
+
+Insert Thought Here
+
+Insert Output Here
+
+Envelope and decay revealed flat dynamics with no bursts or drops in volume, further pointing toward a sustained source.
+
+Insert Thought Here
+
+Insert Output Here
+
+Spectral flatness was also very low — a telltale sign of tonality.
+
+Insert Thought Here
+
+Insert Output Here
+
+Fractal dimension came back low, and entropy was very low — which in theory indicates low complexity and high predictability.
+
+Insert Thought Here
+
+Insert Output Here
+
+So the agent reasoned: low frequency, stable amplitude, high periodicity, tonal, low complexity. That must mean... an HVAC unit or a transformer.
+
+Insert Final Thought Here
+
+The final classification: "electrical or mechanical source — such as an HVAC system, transformer, or motor."
+
+Except the clip wasn’t artificial at all. It was natural. The agent had confused the structured behavior of running water with the spectral signature of a machine.
+
+What went wrong? Every tool worked as designed, but the interpretation chained those results to form the wrong conclusion. The agent lacked any understanding of context or environment. It couldn’t ask: "Is this in a building or a forest?", "Does it make sense that an HVAC system is in the middle of a forest?" Without that context, everything becomes a pattern-matching exercise — and water sounds, with their steady modulations, sometimes match a motor a little too well.
 
 
 
