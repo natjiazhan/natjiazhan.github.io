@@ -63,27 +63,27 @@ To give the agent more context beyond just frequency content, I added six new to
 
 1. ```zero_crossing_rate```
 
-This measures how often the audio waveform crosses the zero amplitude axis. It's commonly used to estimate signal noisiness. High ZCR indicates lots of rapid changes — like wind, static, or splashing water. Lower values suggest more tonal or stable sources, like engines or fans.
+  This measures how often the audio waveform crosses the zero amplitude axis. It's commonly used to estimate signal noisiness. High ZCR   indicates lots of rapid changes — like wind, static, or splashing water. Lower values suggest more tonal or stable sources, like        engines or fans.
 
 2. ```autocorrelation```
 
-Autocorrelation quantifies the degree of periodicity in a signal. If a sound has repeating patterns, like rotating motors, beeps, or speech, this metric highlights it. A periodic signal likely comes from a man-made or biological source. Rivers or crowds tend to be aperiodic, so this helps the agent prioritize hypotheses like machinery, voices, or alarms when periodicity is detected.
+  Autocorrelation quantifies the degree of periodicity in a signal. If a sound has repeating patterns, like rotating motors, beeps, or    speech, this metric highlights it. A periodic signal likely comes from a man-made or biological source. Rivers or crowds tend to be     aperiodic, so this helps the agent prioritize hypotheses like machinery, voices, or alarms when periodicity is detected.
 
 3. ```envelope_decay```
 
-This examines how the amplitude envelope of the signal changes over time. Sounds with rapid onsets and decays (e.g. claps or metal hits) have different decay curves compared to continuous or sustained noises. This helps the agent distinguish between transient, impact-like sounds (construction, tools, footsteps) and sustained ones (fans, wind, music).
+  This examines how the amplitude envelope of the signal changes over time. Sounds with rapid onsets and decays (e.g. claps or metal      hits) have different decay curves compared to continuous or sustained noises. This helps the agent distinguish between transient,       impact-like sounds (construction, tools, footsteps) and sustained ones (fans, wind, music).
 
 4. ```spectral_flatness```
 
-Spectral flatness measures how noise-like a sound is across the spectrum. A pure tone has low flatness (energy is concentrated in one frequency), while white noise or turbulent flow has high flatness (energy is spread evenly). Many natural environments — like rivers or wind — produce high flatness values. In contrast, engines and digital tones tend to be flatter in temporal structure but peaky in spectrum.
+  Spectral flatness measures how noise-like a sound is across the spectrum. A pure tone has low flatness (energy is concentrated in one   frequency), while white noise or turbulent flow has high flatness (energy is spread evenly). Many natural environments — like rivers    or wind — produce high flatness values. In contrast, engines and digital tones tend to be flatter in temporal structure but peaky in    spectrum.
 
 5. ```fractal_dimension```
 
-This quantifies the complexity or self-similarity of a waveform. A signal with structured, repeated patterns has a lower fractal dimension, while chaotic signals tend to have higher values. This helps distinguish between organic and mechanical processes. It also offers a backup signal complexity metric that isn’t redundant with entropy or ZCR.
+  This quantifies the complexity or self-similarity of a waveform. A signal with structured, repeated patterns has a lower fractal        dimension, while chaotic signals tend to have higher values. This helps distinguish between organic and mechanical processes. It also   offers a backup signal complexity metric that isn’t redundant with entropy or ZCR.
 
 6. ```shannon_entropy```
 
-Entropy estimates the unpredictability or randomness of the waveform's amplitude distribution. A high entropy signal is unpredictable and complex, while low entropy suggests repetitive or structured content. Together with flatness and fractal dimension, entropy gives a more complete picture of signal randomness. It also complements autocorrelation — both tools approach structure detection from different angles.
+  Entropy estimates the unpredictability or randomness of the waveform's amplitude distribution. A high entropy signal is unpredictable   and complex, while low entropy suggests repetitive or structured content. Together with flatness and fractal dimension, entropy gives   a more complete picture of signal randomness. It also complements autocorrelation — both tools approach structure detection from        different angles.
 
 There is some intentional overlap among these tools. For instance, both entropy and fractal dimension relate to signal complexity, while ZCR and spectral flatness speak to noisiness. But each approaches its measurement from a different mathematical lens, which means they occasionally surface contradictions that should help the agent reason through ambiguity. In theory, this meant the agent should be able to tell the difference between a gurgling stream and a humming motor — even if they both produce energy at 100 Hz. One is chaotic, noisy, and organic. The other is mechanical, stable, and tonal. But it didn't.
 
