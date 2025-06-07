@@ -9,7 +9,7 @@ tags: [audio, agents, signal-processing, trouble-shooting]
 
 For the past few weeks, I’ve been building a project called Signals Agent, a tool designed to analyze environmental audio using FFTs and other signal processing techniques, powered by an LLM-based reasoning loop. The goal was simple in theory: create an agent that could make sense of ambient sounds by performing multiscale spectral analysis, identify interesting frequency events, and describe likely real-world sources. As with any real-world agentic system, the reality has been much more complex. This blog post documents my recent efforts to improve the accuracy and reliability of the agent, especially in distinguishing between sound sources with overlapping spectral content. 
 
-## Identifying Interesting Frequencies
+### Identifying Interesting Frequencies
 
 Out of the box, the agent was fairly capable at identifying frequency ranges that were "interesting" or worth inspecting. The foundational fft tool was designed to perform frequency-time domain analysis:
 
@@ -31,7 +31,7 @@ csv_str = fft(file_path, cutoff_lo=90, cutoff_hi=140, time_bins=20, freq_bins=10
 
 to see how stable that hum is over time. The point is: the agent performs multiple FFTs across resolutions to explore the structure of spectral energy — from broad sweeps to fine slices. This part worked well. But the problem started when I expected the agent to tell me what the source of a frequency actually was. It could identify a 120 Hz drone, but would call everything either electronic hum or HVAC systems.
 
-## The Misclassification Problem
+### The Misclassification Problem
 
 The core issue was that different real-world sources often share the same frequency signature. HVAC systems, AC generators, and even rivers can produce a continuous hum in the 50–200 Hz range. While the agent could detect the presence of energy in that band, it struggled to differentiate why that energy was there. It might classify a 120 Hz hum as an HVAC system, when in reality it came from water flowing in a creek.
 
@@ -39,7 +39,7 @@ This was especially problematic for clips that contained multiple overlapping so
 
 The problem wasn’t just in classification — it was in the reasoning process. The agent would fixate on dominant frequencies and anchor its conclusions to shallow patterns it had seen before. In some cases, even when told to explore narrower windows and different binning resolutions, it would reach confident but contradictory conclusions based on nearly identical input. I realized that the agent was heavily biased toward frequency-based pattern recognition, but lacked the world knowledge and contextual inference needed to move from "what it hears" to "what it understands."
 
-## Attempt 1: Line of Reasoning
+### Attempt 1: Line of Reasoning
 
 Before anything else, I tried a simple solution: teach the agent how to think more deliberately. I added a section to the system prompt to encourage a clear sequence of steps, almost like a scientific method for audio analysis.
 
@@ -57,7 +57,7 @@ The idea was to help the agent reason its way through the problem:
 
 In practice, this sometimes worked. The agent would identify a 120 Hz hum, note its consistency, search for sources of narrowband low-frequency tones, and suggest it was either an HVAC system or an engine. But too often, the analysis would short-circuit. The agent would detect a peak, guess at the cause, and skip deeper steps altogether. Or it would offer two contradictory explanations, like "natural water flow" and "electrical transformer", without resolving which was more likely. This revealed a core limitation: even with a structured prompt, the agent still didn’t have enough input to reason well. It could identify peaks and echo back facts, but it lacked descriptors like noisiness, periodicity, or entropy, all of which are essential when frequency alone isn’t enough.
 
-## Attempt 2: Adding More Tools
+### Attempt 2: Adding More Tools
 
 To give the agent more context beyond just frequency content, I added six new tools to ```functions.py```. Each was chosen to extract a different acoustic property that could help the agent reason about the nature of a sound, especially in edge cases where FFT data alone was ambiguous.
 
@@ -102,7 +102,7 @@ To give the agent more context beyond just frequency content, I added six new to
 
 There is some intentional overlap among these tools. For instance, both entropy and fractal dimension relate to signal complexity, while ZCR and spectral flatness speak to noisiness. But each approaches its measurement from a different mathematical lens, which means they occasionally surface contradictions that should help the agent reason through ambiguity. In theory, this meant the agent should be able to tell the difference between a gurgling stream and a humming motor — even if they both produce energy at 100 Hz. One is chaotic, noisy, and organic. The other is mechanical, stable, and tonal. But it didn't.
 
-## Attempt 3: More Detail, Same Problem
+### Attempt 3: More Detail, Same Problem
 
 After the continued misclassification in the creek recording after adding more tools, I doubled down on trying to fix the issue using prompt engineering. Instead of just listing tools, I rewrote the system prompt to tell the agent how to think with them.
 
@@ -140,7 +140,7 @@ What the agent didn’t do, and still can’t, is question its assumptions. It d
 
 So I had built a system that could measure more than ever — but still couldn’t understand what it was measuring. The prompt had become more of a checklist than a strategy. It effectively deludes itself into seeing every tool output as evidence for its claim. Talk about a fallacy of reasoning. Tools and prompting didn’t change the way the agent thinks, it just made it talk longer before making the same mistake.
 
-## The Misclassification Problem Part 2
+### The Misclassification Problem Part 2
 
 To better understand where the agent’s reasoning fails, I ran it on a 20-second audio clip recorded at a forest creek. The true contents of the recording were simple: the gentle sound of water flowing over rocks and leaves rustling in the background. 
 
@@ -183,7 +183,7 @@ Except the clip wasn’t artificial at all. It was natural. The agent had confus
 
 What went wrong? Every tool worked as designed, but the interpretation chained those results to form the wrong conclusion. The agent lacked any understanding of context or environment. It couldn’t ask: "Is this in a building or a forest?", "Does it make sense that an HVAC system is in the middle of a forest?" Without that context, everything becomes a pattern-matching exercise — and water sounds, with their steady modulations, sometimes match a motor a little too well.
 
-## What now?
+### What now?
 
 I've thought about giving the agent some more information and context about *where* it is. Maybe I could give it a photo or a short description of where the audio clip comes from, but this kind of defeats one of my initial purposes for making this agent. I wanted it to be able to determine sources and where it is based purely on the audio around it. I see it being pointed at a machine and identifying that it has a faulty gear since it hears grinding where there shouldn't be any. 
 
