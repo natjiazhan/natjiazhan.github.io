@@ -93,6 +93,44 @@ Entropy estimates the unpredictability or randomness of the waveform's amplitude
 
 There is some intentional overlap among these tools. For instance, both entropy and fractal dimension relate to signal complexity, while ZCR and spectral flatness speak to noisiness. But each approaches its measurement from a different mathematical lens, which means they occasionally surface contradictions that should help the agent reason through ambiguity. In theory, this meant the agent should be able to tell the difference between a gurgling stream and a humming motor — even if they both produce energy at 100 Hz. One is chaotic, noisy, and organic. The other is mechanical, stable, and tonal. But it didn't.
 
+## Attempt 3: More Detail, Same Problem
+
+After the continued misclassification in the creek recording after adding more tools, I doubled down on trying to fix the issue using prompt engineering. Instead of just listing tools, I rewrote the system prompt to tell the agent how to think with them.
+
+This time, I didn’t just say “run FFT, then zero crossing, then entropy.” I told the agent to:
+
+- Start with a broad FFT to get the spectral overview.
+
+- Use the results to decide where and when to zoom in with higher-resolution FFTs.
+
+- Use autocorrelation to confirm periodicity only if the signal looked stable.
+
+- Use ZCR and spectral flatness to cross-check tonality vs. noise.
+
+- Use envelope and decay to decide whether energy bursts were present.
+
+- Interpret fractal dimension and Shannon entropy together as indicators of complexity and randomness.
+
+- Finally, synthesize all of these results into a single reasoned hypothesis, not just a label.
+
+I even included short tool definitions and rough guidelines for what specific value ranges might mean. For example, I explained that:
+
+- Spectral flatness near 0 implies tonality, near 1 implies noise.
+
+- High zero-crossing rate suggests transients; low implies smoothness.
+
+- High autocorrelation indicates periodicity or a consistent waveform.
+
+- Low fractal dimension suggests low complexity; high means irregularity.
+
+- Shannon entropy closer to 0 implies order; higher values suggest randomness.
+
+This prompt was way longer than the original and contained much more detail. I hoped that it would finally push the agent into a mode of deeper analysis. And at first glance, it seemed to work — the agent now provided thorough breakdowns of what each tool said and tried to connect them logically. But the core flaw remained: it still believed the tools blindly. It would string together a technically correct series of observations and then reach a wildly incorrect conclusion. In the same creek recording, the agent once again identified it as a transformer. It just did so with more elaborate reasoning.
+
+What the agent didn’t do, and still can’t, is question its assumptions. It doesn’t ask itself if what it's hypothesizing makes sense. It doesn’t express uncertainty, or hedge its answers even when the evidence is contradictory. Worse, it rarely weighs one tool’s signal against another — if entropy says “low,” that becomes gospel, even if flatness or ZCR suggest otherwise.
+
+So I had built a system that could measure more than ever — but still couldn’t understand what it was measuring. The prompt had become more of a checklist than a strategy. It effectively deludes itself into seeing every tool output as evidence for its claim. Talk about a fallacy of reasoning. Tools and prompting didn’t change the way the agent thinks, it just made it talk longer before making the same mistake.
+
 ## The Misclassification Problem Part 2
 
 To better understand where the agent’s reasoning fails, I ran it on a 20-second audio clip recorded at a forest creek. The true contents of the recording were simple: the gentle sound of water flowing over rocks and leaves rustling in the background. 
@@ -145,5 +183,9 @@ Except the clip wasn’t artificial at all. It was natural. The agent had confus
 
 What went wrong? Every tool worked as designed, but the interpretation chained those results to form the wrong conclusion. The agent lacked any understanding of context or environment. It couldn’t ask: "Is this in a building or a forest?", "Does it make sense that an HVAC system is in the middle of a forest?" Without that context, everything becomes a pattern-matching exercise — and water sounds, with their steady modulations, sometimes match a motor a little too well.
 
+## What now?
 
+I've thought about giving the agent some more information and context about *where* it is. Maybe I could give it a photo or a short description of where the audio clip comes from, but this kind of defeats one of my initial purposes for making this agent. I wanted it to be able to determine sources and where it is based purely on the audio around it. I see it being pointed at a machine and identifying that it has a faulty gear since it hears grinding where there shouldn't be any. 
+
+If you have any suggestions or fixes please feel free to shoot me an email. I appreciate any advice. 
 
