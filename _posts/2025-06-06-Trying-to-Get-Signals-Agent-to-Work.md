@@ -137,45 +137,36 @@ To better understand where the agent’s reasoning fails, I ran it on a 20-secon
 
 Have a listen: [[[[[[ AAAAADDDD AUUUDDIOOOO HEREEE]]]]]]
 
-Insert Thought Here
-
 The agent began with a broad FFT covering 0–2000 Hz and found strong sustained energy in the lowest frequency band — especially below 133 Hz.
 
-Insert Output Here
+![FFT Call](/images/fft_call.png)
+![FFT Output](/images/fft.png)
 
 Next, it ran an autocorrelation analysis to check for periodicity. The results showed extremely high correlation at low lags, which the agent interpreted as tonal regularity.
 
-Insert Thought Here
-
-Insert Output Here
+![Autocorrelation Call](/images/autocorrelationcall.png)
+![Autocorrelation Output](/images/autocorrelationoutput.png)
 
 Then it tried zero crossing rate to assess noisiness, which came out uniformly low — again consistent with a smooth waveform.
 
-Insert Thought Here
-
-Insert Output Here
+![ZCR Call and Output](/images/zcr.png)
 
 Envelope and decay revealed flat dynamics with no bursts or drops in volume, further pointing toward a sustained source.
 
-Insert Thought Here
-
-Insert Output Here
+![Envelope and Decay Call and Output](/images/envelopedecay.png)
 
 Spectral flatness was also very low — a telltale sign of tonality.
 
-Insert Thought Here
-
-Insert Output Here
+![Spectral Flatness Call and Ouput](/images/spectralflatness.png)
 
 Fractal dimension came back low, and entropy was very low — which in theory indicates low complexity and high predictability.
 
-Insert Thought Here
-
-Insert Output Here
+![Fractal Dimension Call and Ouput](/images/fractaldimension.png)
+![Shannon Entropy Call and Ouput](/images/shannonentropy.png)
 
 So the agent reasoned: low frequency, stable amplitude, high periodicity, tonal, low complexity. That must mean... an HVAC unit or a transformer.
 
-Insert Final Thought Here
+![Final Ouput](/images/final_output.png)
 
 The final classification: "electrical or mechanical source — such as an HVAC system, transformer, or motor."
 
