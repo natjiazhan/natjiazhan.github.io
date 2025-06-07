@@ -19,7 +19,7 @@ csv_str = fft("data/hamilton_ave.m4a", cutoff_lo=0, cutoff_hi=2000, start_sec=0,
 
 The FFT result was then rendered into a Rich terminal heatmap to make peaks more visible. It became clear early on that the agent could reliably detect low-frequency hums, midrange chirps, and high-frequency bursts across a variety of recordings.
 
-(INSERT OUTPUT HERE)
+![Example FFT](/images/fftex.png)
 
 This initial success wasn’t random — it was thanks to an engineered system prompt. The prompt explicitly instructs the agent to begin every analysis with a broad-band FFT sweep (typically 0–2000 Hz) to capture general spectral structure, followed by targeted follow-ups. The agent is told to "drill down" by narrowing frequency ranges and time segments where peaks are observed. This iterative process of zooming in — refining the cutoff_lo, cutoff_hi, and adjusting time_bins and freq_bins — allows the agent to separate persistent tones from transients or short-lived spikes.
 
@@ -37,13 +37,7 @@ The core issue was that different real-world sources often share the same freque
 
 This was especially problematic for clips that contained multiple overlapping sound sources. A forest with a stream might have overlapping broadband noise and low-frequency hum, while a construction site might feature machinery sounds and background wind. Despite running multiple FFTs and sometimes invoking additional tools like spectral_flatness or autocorrelation, the agent's predictions often flattened into overly generic labels like "machine" or "ambient."
 
-The problem wasn’t just in classification — it was in the reasoning process. The agent would fixate on dominant frequencies and anchor its conclusions to shallow patterns it had seen before. In some cases, even when told to explore narrower windows and different binning resolutions, it would reach confident but contradictory conclusions based on nearly identical input.
-
-(INSERT THOUGHT HERE)
-
-(INSERT OUTPUT HERE)
-
-I realized that the agent was heavily biased toward frequency-based pattern recognition, but lacked the world knowledge and contextual inference needed to move from "what it hears" to "what it understands."
+The problem wasn’t just in classification — it was in the reasoning process. The agent would fixate on dominant frequencies and anchor its conclusions to shallow patterns it had seen before. In some cases, even when told to explore narrower windows and different binning resolutions, it would reach confident but contradictory conclusions based on nearly identical input. I realized that the agent was heavily biased toward frequency-based pattern recognition, but lacked the world knowledge and contextual inference needed to move from "what it hears" to "what it understands."
 
 ## Attempt 1: Line of Reasoning
 
