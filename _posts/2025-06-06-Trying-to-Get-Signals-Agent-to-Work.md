@@ -21,7 +21,7 @@ The FFT result was then rendered into a Rich terminal heatmap to make peaks more
 
 ![Example FFT](/images/fftex.png)
 
-This initial success wasn’t random — it was thanks to an engineered system prompt. The prompt explicitly instructs the agent to begin every analysis with a broad-band FFT sweep (typically 0–2000 Hz) to capture general spectral structure, followed by targeted follow-ups. The agent is told to "drill down" by narrowing frequency ranges and time segments where peaks are observed. This iterative process of zooming in — refining the cutoff_lo, cutoff_hi, and adjusting time_bins and freq_bins — allows the agent to separate persistent tones from transients or short-lived spikes.
+This initial success wasn’t random, it was thanks to an engineered system prompt. The prompt explicitly instructs the agent to begin every analysis with a broad-band FFT sweep (typically 0–2000 Hz) to capture general spectral structure, followed by targeted follow-ups. The agent is told to "drill down" by narrowing frequency ranges and time segments where peaks are observed. This iterative process of zooming in, refining the cutoff_lo, cutoff_hi, and adjusting time_bins and freq_bins, allows the agent to separate persistent tones from transients or short-lived spikes.
 
 For example, if the first FFT shows a wide, stable peak between 90 and 140 Hz across the entire clip, the agent might run a second FFT with:
 
@@ -29,7 +29,7 @@ For example, if the first FFT shows a wide, stable peak between 90 and 140 Hz ac
 csv_str = fft(file_path, cutoff_lo=90, cutoff_hi=140, time_bins=20, freq_bins=10)
 ```
 
-to see how stable that hum is over time. The point is: the agent performs multiple FFTs across resolutions to explore the structure of spectral energy — from broad sweeps to fine slices. This part worked well. But the problem started when I expected the agent to tell me what the source of a frequency actually was. It could identify a 120 Hz drone, but would call everything either electronic hum or HVAC systems.
+to see how stable that hum is over time. The point is: the agent performs multiple FFTs across resolutions to explore the structure of spectral energy, from broad sweeps to fine slices. This part worked well. But the problem started when I expected the agent to tell me what the source of a frequency actually was. It could identify a 120 Hz drone, but would call everything either electronic hum or HVAC systems.
 
 ### The Misclassification Problem
 
@@ -37,7 +37,7 @@ The core issue was that different real-world sources often share the same freque
 
 This was especially problematic for clips that contained multiple overlapping sound sources. A forest with a stream might have overlapping broadband noise and low-frequency hum, while a construction site might feature machinery sounds and background wind. Despite running multiple FFTs and sometimes invoking additional tools like spectral_flatness or autocorrelation, the agent's predictions often flattened into overly generic labels like "machine" or "ambient."
 
-The problem wasn’t just in classification — it was in the reasoning process. The agent would fixate on dominant frequencies and anchor its conclusions to shallow patterns it had seen before. In some cases, even when told to explore narrower windows and different binning resolutions, it would reach confident but contradictory conclusions based on nearly identical input. I realized that the agent was heavily biased toward frequency-based pattern recognition, but lacked the world knowledge and contextual inference needed to move from "what it hears" to "what it understands."
+The problem wasn’t just in classification, it was in the reasoning process. The agent would fixate on dominant frequencies and anchor its conclusions to shallow patterns it had seen before. In some cases, even when told to explore narrower windows and different binning resolutions, it would reach confident but contradictory conclusions based on nearly identical input. I realized that the agent was heavily biased toward frequency-based pattern recognition, but lacked the world knowledge and contextual inference needed to move from "what it hears" to "what it understands."
 
 ### Attempt 1: Line of Reasoning
 
@@ -64,7 +64,7 @@ To give the agent more context beyond just frequency content, I added six new to
 1. ```zero_crossing_rate```
 
    This measures how often the audio waveform crosses the zero amplitude axis. It's commonly used to estimate signal noisiness. High ZCR
-   indicates lots of rapid changes — like wind, static, or splashing water. Lower values suggest more tonal or stable sources, like
+   indicates lots of rapid changes, like wind, static, or splashing water. Lower values suggest more tonal or stable sources, like
    engines or fans.
 
 2. ```autocorrelation```
@@ -82,8 +82,8 @@ To give the agent more context beyond just frequency content, I added six new to
 4. ```spectral_flatness```
 
    Spectral flatness measures how noise-like a sound is across the spectrum. A pure tone has low flatness (energy is concentrated in one
-   frequency), while white noise or turbulent flow has high flatness (energy is spread evenly). Many natural environments — like rivers
-   or wind — produce high flatness values. In contrast, engines and digital tones tend to be flatter in temporal structure but peaky in
+   frequency), while white noise or turbulent flow has high flatness (energy is spread evenly). Many natural environments, like rivers
+   or wind, produce high flatness values. In contrast, engines and digital tones tend to be flatter in temporal structure but peaky in
    spectrum.
 
 5. ```fractal_dimension```
@@ -96,11 +96,11 @@ To give the agent more context beyond just frequency content, I added six new to
 
    Entropy estimates the unpredictability or randomness of the waveform's amplitude distribution. A high entropy signal is unpredictable
    and complex, while low entropy suggests repetitive or structured content. Together with flatness and fractal dimension, entropy gives
-   a more complete picture of signal randomness. It also complements autocorrelation — both tools approach structure detection from
+   a more complete picture of signal randomness. It also complements autocorrelation, both tools approach structure detection from
    different angles.
 
 
-There is some intentional overlap among these tools. For instance, both entropy and fractal dimension relate to signal complexity, while ZCR and spectral flatness speak to noisiness. But each approaches its measurement from a different mathematical lens, which means they occasionally surface contradictions that should help the agent reason through ambiguity. In theory, this meant the agent should be able to tell the difference between a gurgling stream and a humming motor — even if they both produce energy at 100 Hz. One is chaotic, noisy, and organic. The other is mechanical, stable, and tonal. But it didn't.
+There is some intentional overlap among these tools. For instance, both entropy and fractal dimension relate to signal complexity, while ZCR and spectral flatness speak to noisiness. But each approaches its measurement from a different mathematical lens, which means they occasionally surface contradictions that should help the agent reason through ambiguity. In theory, this meant the agent should be able to tell the difference between a gurgling stream and a humming motor, even if they both produce energy at 100 Hz. One is chaotic, noisy, and organic. The other is mechanical, stable, and tonal. But it didn't.
 
 ### Attempt 3: More Detail, Same Problem
 
@@ -134,19 +134,24 @@ I even included short tool definitions and rough guidelines for what specific va
 
 - Shannon entropy closer to 0 implies order; higher values suggest randomness.
 
-This prompt was way longer than the original and contained much more detail. I hoped that it would finally push the agent into a mode of deeper analysis. And at first glance, it seemed to work — the agent now provided thorough breakdowns of what each tool said and tried to connect them logically. But the core flaw remained: it still believed the tools blindly. It would string together a technically correct series of observations and then reach a wildly incorrect conclusion. In the same creek recording, the agent once again identified it as a transformer. It just did so with more elaborate reasoning.
+This prompt was way longer than the original and contained much more detail. I hoped that it would finally push the agent into a mode of deeper analysis. And at first glance, it seemed to work, the agent now provided thorough breakdowns of what each tool said and tried to connect them logically. But the core flaw remained: it still believed the tools blindly. It would string together a technically correct series of observations and then reach a wildly incorrect conclusion. In the same creek recording, the agent once again identified it as a transformer. It just did so with more elaborate reasoning.
 
-What the agent didn’t do, and still can’t, is question its assumptions. It doesn’t ask itself if what it's hypothesizing makes sense. It doesn’t express uncertainty, or hedge its answers even when the evidence is contradictory. Worse, it rarely weighs one tool’s signal against another — if entropy says “low,” that becomes gospel, even if flatness or ZCR suggest otherwise.
+What the agent didn’t do, and still can’t, is question its assumptions. It doesn’t ask itself if what it's hypothesizing makes sense. It doesn’t express uncertainty, or hedge its answers even when the evidence is contradictory. Worse, it rarely weighs one tool’s signal against another, if entropy says “low,” that becomes gospel, even if flatness or ZCR suggest otherwise.
 
-So I had built a system that could measure more than ever — but still couldn’t understand what it was measuring. The prompt had become more of a checklist than a strategy. It effectively deludes itself into seeing every tool output as evidence for its claim. Talk about a fallacy of reasoning. Tools and prompting didn’t change the way the agent thinks, it just made it talk longer before making the same mistake.
+So I had built a system that could measure more than ever, but still couldn’t understand what it was measuring. The prompt had become more of a checklist than a strategy. It effectively deludes itself into seeing every tool output as evidence for its claim. Talk about a fallacy of reasoning. Tools and prompting didn’t change the way the agent thinks, it just made it talk longer before making the same mistake.
 
 ### The Misclassification Problem Part 2
 
 To better understand where the agent’s reasoning fails, I ran it on a 20-second audio clip recorded at a forest creek. The true contents of the recording were simple: the gentle sound of water flowing over rocks and leaves rustling in the background. 
 
-Have a listen: [[[[[[ AAAAADDDD AUUUDDIOOOO HEREEE]]]]]]
+Have a listen:
 
-The agent began with a broad FFT covering 0–2000 Hz and found strong sustained energy in the lowest frequency band — especially below 133 Hz.
+<audio controls>
+  <source src="/images/audio1.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+The agent began with a broad FFT covering 0–2000 Hz and found strong sustained energy in the lowest frequency band, especially below 133 Hz.
 
 ![FFT Call](/images/fft_call.png)
 ![FFT Output](/images/fft.png)
@@ -156,7 +161,7 @@ Next, it ran an autocorrelation analysis to check for periodicity. The results s
 ![Autocorrelation Call](/images/autocorrelationcall.png)
 ![Autocorrelation Output](/images/autocorrelationoutput.png)
 
-Then it tried zero crossing rate to assess noisiness, which came out uniformly low — again consistent with a smooth waveform.
+Then it tried zero crossing rate to assess noisiness, which came out uniformly low, again consistent with a smooth waveform.
 
 ![ZCR Call and Output](/images/zcr.png)
 
@@ -164,11 +169,11 @@ Envelope and decay revealed flat dynamics with no bursts or drops in volume, fur
 
 ![Envelope and Decay Call and Output](/images/envelopedecay.png)
 
-Spectral flatness was also very low — a telltale sign of tonality.
+Spectral flatness was also very low, a telltale sign of tonality.
 
 ![Spectral Flatness Call and Ouput](/images/spectralflatness.png)
 
-Fractal dimension came back low, and entropy was very low — which in theory indicates low complexity and high predictability.
+Fractal dimension came back low, and entropy was very low, which in theory indicates low complexity and high predictability.
 
 ![Fractal Dimension Call and Ouput](/images/fractaldimension.png)
 ![Shannon Entropy Call and Ouput](/images/shannonentropy.png)
@@ -177,11 +182,11 @@ So the agent reasoned: low frequency, stable amplitude, high periodicity, tonal,
 
 ![Final Ouput](/images/final_output.png)
 
-The final classification: "electrical or mechanical source — such as an HVAC system, transformer, or motor."
+The final classification: "electrical or mechanical source, such as an HVAC system, transformer, or motor."
 
 Except the clip wasn’t artificial at all. It was natural. The agent had confused the structured behavior of running water with the spectral signature of a machine.
 
-What went wrong? Every tool worked as designed, but the interpretation chained those results to form the wrong conclusion. The agent lacked any understanding of context or environment. It couldn’t ask: "Is this in a building or a forest?", "Does it make sense that an HVAC system is in the middle of a forest?" Without that context, everything becomes a pattern-matching exercise — and water sounds, with their steady modulations, sometimes match a motor a little too well.
+What went wrong? Every tool worked as designed, but the interpretation chained those results to form the wrong conclusion. The agent lacked any understanding of context or environment. It couldn’t ask: "Is this in a building or a forest?", "Does it make sense that an HVAC system is in the middle of a forest?" Without that context, everything becomes a pattern-matching exercise, and water sounds, with their steady modulations, sometimes match a motor a little too well.
 
 ### What now?
 
