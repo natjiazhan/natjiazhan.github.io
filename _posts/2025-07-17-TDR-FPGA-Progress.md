@@ -169,6 +169,6 @@ endmodule
 
 Implements UART byte-wise transmission. The baud rate divider is tuned for 115200 baud assuming a 50 MHz clock.
 
-For the full codebase, feel free to visit this repository: https://github.com/natjiazhan/ML-TDR-Fault-Detector/tree/main/fpga
+For the full codebase, feel free to visit this repository: [link](https://github.com/natjiazhan/ML-TDR-Fault-Detector/tree/main/fpga)
 
 This blog post documents the current milestone in building a digital TDR simulation on an FPGA, serving as a checkpoint for debugging and planning future iterations. Once stable, the system can evolve into a full diagnostic tool for cable fault simulation, teaching, or embedded testing environments.
