@@ -20,8 +20,6 @@ I did not originally intend for anyone else to read this, but as the piece devel
 What follows is deeply personal and inevitably shaped by my own experiences, values, and biases. Even so, I believe many of the experiences described here are broadly relatable, and that the conclusions I have drawn extend beyond my own life.
 
 
-</div>
-
 <h1 style="text-align: center; margin-bottom: 0.15rem;">Comfort, Meaning, and the Fragility of Modern Life</h1>
 
 <p style="text-align: center; margin-top: 0;">- Nathan Zhang | <em>September 18-19, 2026</em> -</p>
