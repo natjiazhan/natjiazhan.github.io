@@ -7,8 +7,6 @@ categories: [blog]
 tags: []
 ---
 
-<div style="text-align: center; margin: 5rem auto 4rem; max-width: 780px;">
-
 *Author’s Note:*
 
 I have been developing thoughts and ideas for the last four and a half years.
