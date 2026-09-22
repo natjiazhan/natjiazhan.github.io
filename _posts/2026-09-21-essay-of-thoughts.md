@@ -9,8 +9,6 @@ tags: []
 
 <div style="text-align: center; margin: 5rem auto 4rem; max-width: 780px;">
 
-—
-
 *Author’s Note:*
 
 I have been developing thoughts and ideas for the last four and a half years.
@@ -23,7 +21,6 @@ I did not originally intend for anyone else to read this, but as the piece devel
 
 What follows is deeply personal and inevitably shaped by my own experiences, values, and biases. Even so, I believe many of the experiences described here are broadly relatable, and that the conclusions I have drawn extend beyond my own life.
 
-—
 
 </div>
 
