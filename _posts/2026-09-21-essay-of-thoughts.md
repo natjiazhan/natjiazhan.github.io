@@ -210,9 +210,7 @@ While writing this essay I reflected more on what all parents provide for their 
 
 Thank you, Mom and Dad, for providing a stable, sheltered, loving environment to grow in. The freedom, reason, and patience you granted me shaped the person I am today.
 
-*Note 1: I cried heavily while writing the parts about parents…*
-
-*Note 2: After thinking and collecting for 4.5 years, I wrote this in one, 6 hour session.*
+*Fun fact: After thinking and collecting for 4.5 years, I wrote this in one, straight, 6 hour session. (with 3 bathroom breaks, locked in fr)*
 
 <h2 style="text-align: center;">Main ideas and conclusions I reached:</h2>
 
